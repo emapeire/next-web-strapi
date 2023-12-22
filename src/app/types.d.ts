@@ -40,6 +40,8 @@ export interface Description {
 export interface Child {
   type: string
   text: string
+  bold?: boolean
+  italic?: boolean
 }
 
 export interface Meta {
