@@ -42,6 +42,9 @@ export interface Child {
   text: string
   bold?: boolean
   italic?: boolean
+  underline?: boolean
+  code?: boolean
+  href?: string
 }
 
 export interface Meta {

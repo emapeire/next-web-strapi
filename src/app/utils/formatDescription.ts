@@ -4,14 +4,34 @@ export function formatDescription(children: Child[]): string {
   return children
     .map((child) => {
       let text = child.text
-      if (child.bold === true && child.italic === true) {
+      // Apply styles combinations
+      if (child.bold && child.italic && child.underline) {
+        text = `<strong><em><u>${text}</u></em></strong>`
+      } else if (child.bold && child.italic) {
         text = `<strong><em>${text}</em></strong>`
+      } else if (child.bold && child.underline) {
+        text = `<strong><u>${text}</u></strong>`
+      } else if (child.italic && child.underline) {
+        text = `<em><u>${text}</u></em>`
+      } else {
+        // Apply styles individually
+        if (child.bold) {
+          text = `<strong>${text}</strong>`
+        }
+        if (child.italic) {
+          text = `<em>${text}</em>`
+        }
+        if (child.underline) {
+          text = `<u>${text}</u>`
+        }
       }
-      if (child.bold === true) {
-        text = `<strong>${text}</strong>`
+      // Apply code
+      if (child.code) {
+        text = `<code>${text}</code>`
       }
-      if (child.italic === true) {
-        text = `<em>${text}</em>`
+      // Apply links
+      if (child.href) {
+        text = `<a href="${child.href}" target="_blank" rel="noopener noreferrer">${text}</a>`
       }
       return text
     })
