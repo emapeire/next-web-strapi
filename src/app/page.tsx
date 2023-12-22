@@ -26,9 +26,10 @@ export default async function Home() {
             <h5 className='mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white'>
               {game.title}
             </h5>
-            <p className='mb-3 font-normal text-gray-700 dark:text-gray-400'>
-              {game.description}
-            </p>
+            <div
+              className='mb-3 font-normal text-gray-700 dark:text-gray-400'
+              dangerouslySetInnerHTML={{ __html: game.description }}
+            />
           </div>
         </Link>
       ))}

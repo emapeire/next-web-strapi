@@ -1,5 +1,6 @@
 import { API_URL, STRAPI_URL } from '../config'
 import { Datum, ProcessedGame } from '../types.d'
+import { formatDescription } from '../utils/formatDescription'
 
 export async function getGames(): Promise<ProcessedGame[]> {
   const res = await fetch(
@@ -12,12 +13,14 @@ export async function getGames(): Promise<ProcessedGame[]> {
 
   return data.map(({ attributes, id }: Datum) => {
     const { title } = attributes
-    const { text: description } = attributes.description[0].children[0]
+    const descriptionHTML = attributes.description
+      .map(({ children }) => `<p>${formatDescription(children)}</p>`)
+      .join('')
     const { url: cover } = attributes.cover.data.attributes
     return {
       id,
       title,
-      description,
+      description: descriptionHTML,
       cover: `${STRAPI_URL}${cover}`
     }
   })
