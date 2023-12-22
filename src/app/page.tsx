@@ -1,9 +1,10 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { getGames } from './services/videogames'
+import { Datum } from './types.d'
 
 export default async function Home() {
-  const games = await getGames()
+  const games: Datum[] = await getGames()
 
   return (
     <main className='flex min-h-screen flex-col items-center p-24'>
