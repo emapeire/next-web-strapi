@@ -2,7 +2,6 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { getGames } from './services/videogames'
 import { ProcessedGame } from './types.d'
-import ReactMarkdown from 'react-markdown'
 
 export default async function Home() {
   const games: ProcessedGame[] = await getGames()
@@ -27,9 +26,9 @@ export default async function Home() {
             <h5 className='mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white'>
               {game.title}
             </h5>
-            <div className='mb-3 font-normal text-gray-700 dark:text-gray-400'>
-              <ReactMarkdown>{game.description}</ReactMarkdown>
-            </div>
+            <p className='mb-3 font-normal text-gray-700 dark:text-gray-400'>
+              {game.description}
+            </p>
           </div>
         </Link>
       ))}
