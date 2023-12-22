@@ -52,3 +52,10 @@ export interface Pagination {
   pageCount: number
   total: number
 }
+
+export interface ProcessedGame {
+  id: number
+  title: string
+  description: string
+  cover: string
+}
