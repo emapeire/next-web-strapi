@@ -1,4 +1,6 @@
-export function Pagination({ pagination }) {
+import { Meta } from '../types.d'
+
+export function Pagination({ pagination }: Meta) {
   const { page, pageCount, total } = pagination
   const isFirstPage = page === 1
   const lastPage = page === pageCount
