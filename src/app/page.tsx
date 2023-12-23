@@ -1,11 +1,10 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { getGames } from './services/videogames'
-import { ProcessedGame } from './types.d'
 import { Pagination } from './components/Pagination'
 
 export default async function Home() {
-  const games: ProcessedGame[] = await getGames()
+  const { games, pagination } = await getGames()
 
   return (
     <main className='flex min-h-screen flex-col items-center p-24'>
@@ -34,7 +33,7 @@ export default async function Home() {
           </div>
         </Link>
       ))}
-      <Pagination pagination={{ page: 1, pageCount: 3, total: 3 }} />
+      <Pagination pagination={pagination} />
     </main>
   )
 }
