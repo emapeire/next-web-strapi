@@ -1,5 +1,5 @@
 import { API_URL, STRAPI_URL } from '../config'
-import { APIResults, ProcessedData } from '../types'
+import { APIResults, Datum } from '../types'
 import { formatDescription } from '../utils/formatDescription'
 
 export async function getData() {
@@ -12,7 +12,7 @@ export async function getData() {
   const result: APIResults = await res.json()
   const { pagination } = result.meta
 
-  const data: ProcessedData[] = result.data.map(({ attributes, id }) => {
+  const data = result.data.map(({ attributes, id }: Datum) => {
     const { title } = attributes
     const descriptionHTML = attributes.description
       .map(({ children }) => `<p>${formatDescription(children)}</p>`)
