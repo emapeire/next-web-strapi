@@ -2,6 +2,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { getGames } from './services/videogames'
 import { ProcessedGame } from './types.d'
+import { Pagination } from './components/Pagination'
 
 export default async function Home() {
   const games: ProcessedGame[] = await getGames()
@@ -12,7 +13,7 @@ export default async function Home() {
         <Link
           key={game.id}
           href='#'
-          className='flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 my-4'
+          className='flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 mb-8'
         >
           <Image
             priority
@@ -33,6 +34,7 @@ export default async function Home() {
           </div>
         </Link>
       ))}
+      <Pagination pagination={{ page: 1, pageCount: 3, total: 3 }} />
     </main>
   )
 }
