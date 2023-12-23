@@ -1,10 +1,10 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { getData } from './services/data'
-import { Pagination } from './components/Pagination'
+import { PaginationData } from './components/PaginationData'
 
 export default async function Home() {
-  const { data, pagination } = await getData()
+  const { data, pagination } = await getData({ page: 1, pageSize: 1 })
 
   return (
     <main className='flex min-h-screen flex-col items-center p-24'>
@@ -33,7 +33,7 @@ export default async function Home() {
           </div>
         </Link>
       ))}
-      <Pagination pagination={pagination} />
+      <PaginationData pagination={pagination} />
     </main>
   )
 }

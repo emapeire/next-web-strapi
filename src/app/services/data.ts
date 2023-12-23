@@ -1,10 +1,14 @@
 import { API_URL, STRAPI_URL } from '../config'
-import { APIResults, Datum } from '../types'
+import { APIResults, Datum, Pagination } from '../types'
 import { formatDescription } from '../utils/formatDescription'
 
-export async function getData() {
+export interface PaginationParams
+  extends Pick<Pagination, 'page' | 'pageSize'> {}
+
+export async function getData({ page, pageSize }: PaginationParams) {
   const res = await fetch(
-    `${API_URL}/video-games?populate[platform][fields][0]=name&populate[cover][fields][0]=url`
+    `${API_URL}/video-games?populate[platform][fields][0]=name&populate[cover]
+    [fields][0]=url&pagination[page]=${page}&pagination[pageSize]=${pageSize}`
   )
   if (!res.ok) {
     throw new Error('Something went wrong')

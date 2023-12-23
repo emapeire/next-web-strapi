@@ -1,6 +1,6 @@
-import { Meta } from '../types.d'
+import { Meta } from '../types'
 
-export function Pagination({ pagination }: Meta) {
+export function PaginationData({ pagination }: Meta) {
   const { page, pageCount, total } = pagination
   const isFirstPage = page === 1
   const lastPage = page === pageCount
@@ -20,10 +20,17 @@ export function Pagination({ pagination }: Meta) {
         <span className='font-semibold text-gray-900 dark:text-white'>
           {total}
         </span>{' '}
-        Entries
+        Games
       </span>
       <div className='inline-flex mt-2 xs:mt-0'>
-        <button className='flex items-center justify-center px-3 h-8 text-sm font-medium text-white bg-gray-800 rounded-s hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white'>
+        <button
+          disabled={isFirstPage}
+          className={`${
+            isFirstPage
+              ? 'pointer-events-none opacity-50 flex items-center justify-center px-3 h-8 text-sm font-medium text-white bg-gray-800 rounded-s hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white'
+              : 'flex items-center justify-center px-3 h-8 text-sm font-medium text-white bg-gray-800 rounded-s hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white'
+          }`}
+        >
           <svg
             className='w-3.5 h-3.5 me-2 rtl:rotate-180'
             aria-hidden='true'
@@ -41,7 +48,14 @@ export function Pagination({ pagination }: Meta) {
           </svg>
           Prev
         </button>
-        <button className='flex items-center justify-center px-3 h-8 text-sm font-medium text-white bg-gray-800 border-0 border-s border-gray-700 rounded-e hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white'>
+        <button
+          disabled={lastPage}
+          className={`${
+            lastPage
+              ? 'pointer-events-none opacity-50 flex items-center justify-center px-3 h-8 text-sm font-medium text-white bg-gray-800 border-0 border-s border-gray-700 rounded-e hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white'
+              : 'flex items-center justify-center px-3 h-8 text-sm font-medium text-white bg-gray-800 border-0 border-s border-gray-700 rounded-e hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white'
+          }`}
+        >
           Next
           <svg
             className='w-3.5 h-3.5 ms-2 rtl:rotate-180'
