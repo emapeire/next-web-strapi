@@ -58,7 +58,7 @@ export interface Pagination {
   total: number
 }
 
-export interface ProcessedGame {
+export interface ProcessedData {
   id: number
   title: string
   description: string

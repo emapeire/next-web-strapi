@@ -1,8 +1,8 @@
 import { API_URL, STRAPI_URL } from '../config'
-import { APIResults, ProcessedGame } from '../types.d'
+import { APIResults, ProcessedData } from '../types'
 import { formatDescription } from '../utils/formatDescription'
 
-export async function getGames() {
+export async function getData() {
   const res = await fetch(
     `${API_URL}/video-games?populate[platform][fields][0]=name&populate[cover][fields][0]=url`
   )
@@ -12,7 +12,7 @@ export async function getGames() {
   const result: APIResults = await res.json()
   const { pagination } = result.meta
 
-  const games: ProcessedGame[] = result.data.map(({ attributes, id }) => {
+  const data: ProcessedData[] = result.data.map(({ attributes, id }) => {
     const { title } = attributes
     const descriptionHTML = attributes.description
       .map(({ children }) => `<p>${formatDescription(children)}</p>`)
@@ -27,7 +27,7 @@ export async function getGames() {
   })
 
   return {
-    games,
+    data,
     pagination
   }
 }
