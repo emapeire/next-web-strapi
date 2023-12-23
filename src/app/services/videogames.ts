@@ -1,17 +1,18 @@
 import { API_URL, STRAPI_URL } from '../config'
-import { Datum, ProcessedGame } from '../types.d'
+import { APIResults, ProcessedGame } from '../types.d'
 import { formatDescription } from '../utils/formatDescription'
 
-export async function getGames(): Promise<ProcessedGame[]> {
+export async function getGames() {
   const res = await fetch(
     `${API_URL}/video-games?populate[platform][fields][0]=name&populate[cover][fields][0]=url`
   )
   if (!res.ok) {
     throw new Error('Something went wrong')
   }
-  const { data } = await res.json()
+  const result: APIResults = await res.json()
+  const { pagination } = result.meta
 
-  return data.map(({ attributes, id }: Datum) => {
+  const games: ProcessedGame[] = result.data.map(({ attributes, id }) => {
     const { title } = attributes
     const descriptionHTML = attributes.description
       .map(({ children }) => `<p>${formatDescription(children)}</p>`)
@@ -24,4 +25,9 @@ export async function getGames(): Promise<ProcessedGame[]> {
       cover: `${STRAPI_URL}${cover}`
     }
   })
+
+  return {
+    games,
+    pagination
+  }
 }
