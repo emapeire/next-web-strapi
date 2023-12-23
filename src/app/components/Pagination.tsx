@@ -9,11 +9,17 @@ export function Pagination({ pagination }: Meta) {
     <div className='flex flex-col items-center'>
       <span className='text-sm text-gray-700 dark:text-gray-400'>
         Showing{' '}
-        <span className='font-semibold text-gray-900 dark:text-white'>1</span>{' '}
+        <span className='font-semibold text-gray-900 dark:text-white'>
+          {page}
+        </span>{' '}
         to{' '}
-        <span className='font-semibold text-gray-900 dark:text-white'>10</span>{' '}
+        <span className='font-semibold text-gray-900 dark:text-white'>
+          {pageCount}
+        </span>{' '}
         of{' '}
-        <span className='font-semibold text-gray-900 dark:text-white'>100</span>{' '}
+        <span className='font-semibold text-gray-900 dark:text-white'>
+          {total}
+        </span>{' '}
         Entries
       </span>
       <div className='inline-flex mt-2 xs:mt-0'>
