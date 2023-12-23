@@ -1,9 +1,16 @@
+import Link from 'next/link'
 import { Meta } from '../types'
 
 export function PaginationData({ pagination }: Meta) {
   const { page, pageCount, total } = pagination
   const isFirstPage = page === 1
-  const lastPage = page === pageCount
+  const isLastPage = page === pageCount
+
+  const prevPage = page - 1
+  const nextPage = page + 1
+
+  const prevPageUrl = isFirstPage ? '#' : `?page=${prevPage}`
+  const nextPageUrl = isLastPage ? '#' : `?page=${nextPage}`
 
   return (
     <div className='flex flex-col items-center'>
@@ -23,8 +30,8 @@ export function PaginationData({ pagination }: Meta) {
         Games
       </span>
       <div className='inline-flex mt-2 xs:mt-0'>
-        <button
-          disabled={isFirstPage}
+        <Link
+          href={prevPageUrl}
           className={`${
             isFirstPage
               ? 'pointer-events-none opacity-50 flex items-center justify-center px-3 h-8 text-sm font-medium text-white bg-gray-800 rounded-s hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white'
@@ -47,11 +54,11 @@ export function PaginationData({ pagination }: Meta) {
             />
           </svg>
           Prev
-        </button>
-        <button
-          disabled={lastPage}
+        </Link>
+        <Link
+          href={nextPageUrl}
           className={`${
-            lastPage
+            isLastPage
               ? 'pointer-events-none opacity-50 flex items-center justify-center px-3 h-8 text-sm font-medium text-white bg-gray-800 border-0 border-s border-gray-700 rounded-e hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white'
               : 'flex items-center justify-center px-3 h-8 text-sm font-medium text-white bg-gray-800 border-0 border-s border-gray-700 rounded-e hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white'
           }`}
@@ -72,7 +79,7 @@ export function PaginationData({ pagination }: Meta) {
               d='M1 5h12m0 0L9 1m4 4L9 9'
             />
           </svg>
-        </button>
+        </Link>
       </div>
     </div>
   )

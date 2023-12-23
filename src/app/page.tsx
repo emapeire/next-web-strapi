@@ -3,8 +3,15 @@ import Image from 'next/image'
 import { getData } from './services/data'
 import { PaginationData } from './components/PaginationData'
 
-export default async function Home() {
-  const { data, pagination } = await getData({ page: 1, pageSize: 1 })
+export interface searchParamsProps {
+  searchParams: {
+    page: number | string
+  }
+}
+
+export default async function Home({ searchParams }: searchParamsProps) {
+  const { page } = searchParams
+  const { data, pagination } = await getData({ page: +page, pageSize: 1 })
 
   return (
     <main className='flex min-h-screen flex-col items-center p-24'>
